@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { PawPrint, ShoppingCart, Headphones, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useToast } from '@/components/Toast';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [cartCount] = useState(3);
+  const toast = useToast();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,7 +63,12 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-4">
-            <button className="relative p-2 rounded-full hover:bg-gray-100 transition-colors group">
+            <button
+              onClick={() => {
+                toast.info('购物车功能开发中');
+              }}
+              className="relative p-2 rounded-full hover:bg-gray-100 transition-colors group"
+            >
               <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6 text-dark/70 group-hover:text-primary transition-colors" />
               {cartCount > 0 && (
                 <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-primary text-white text-xs font-medium rounded-full flex items-center justify-center">

@@ -23,6 +23,7 @@ import ProductCard from '@/components/ProductCard';
 import { products } from '@/data/products';
 import type { ConnectivityType } from '@/types';
 import { cn } from '@/lib/utils';
+import { useToast } from '@/components/Toast';
 
 const connectivityIcons: Record<ConnectivityType, typeof Wifi> = {
   wifi: Wifi,
@@ -53,6 +54,7 @@ const tabLabels: Record<TabKey, string> = {
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const product = products.find((p) => p.id === id);
+  const toast = useToast();
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -263,11 +265,31 @@ export default function ProductDetail() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 mt-auto">
-                <button className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-primary border-2 border-primary hover:bg-primary/5 transition-all duration-200">
+                <button
+                  onClick={() => {
+                    toast.success(`已将 ${quantity} 件 ${product.name} 加入购物车`);
+                    console.log('购物车信息:', {
+                      productId: product.id,
+                      productName: product.name,
+                      quantity,
+                      price: product.price,
+                      total: product.price * quantity,
+                    });
+                  }}
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-primary border-2 border-primary hover:bg-primary/5 transition-all duration-200"
+                >
                   <ShoppingCart className="w-5 h-5" />
                   加入购物车
                 </button>
-                <button className="flex-1 gradient-primary inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-white shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300">
+                <button
+                  onClick={() => {
+                    toast.success('正在为您跳转到结算页面...');
+                    setTimeout(() => {
+                      console.log('模拟跳转到结算页面');
+                    }, 500);
+                  }}
+                  className="flex-1 gradient-primary inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-white shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300"
+                >
                   立即购买
                 </button>
               </div>
@@ -395,7 +417,12 @@ export default function ProductDetail() {
                                   ¥{item.price}
                                 </td>
                                 <td className="py-4 px-4 text-right">
-                                  <button className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-primary/10 text-primary text-sm font-medium hover:bg-primary/20 transition-colors">
+                                  <button
+                                    onClick={() => {
+                                      toast.info(`已将耗材 ${item.name} 加入购物车`);
+                                    }}
+                                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-primary/10 text-primary text-sm font-medium hover:bg-primary/20 transition-colors"
+                                  >
                                     <ShoppingCart className="w-4 h-4" />
                                     购买耗材
                                   </button>

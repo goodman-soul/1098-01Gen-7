@@ -14,6 +14,7 @@ import FaultAccordion from '@/components/FaultAccordion';
 import { faults } from '@/data/faults';
 import type { ProductCategory } from '@/types';
 import { cn } from '@/lib/utils';
+import { useToast } from '@/components/Toast';
 
 type CategoryFilter = 'all' | ProductCategory;
 
@@ -56,6 +57,7 @@ const helpCards = [
 
 export default function Support() {
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>('all');
+  const toast = useToast();
 
   const filteredFaults = useMemo(() => {
     if (activeCategory === 'all') return faults;
@@ -90,6 +92,13 @@ export default function Support() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
             {helpCards.map((card) => {
               const Icon = card.icon;
+              const handleClick = () => {
+                if (card.buttonText === '立即咨询') {
+                  toast.success('正在为您连接在线客服，请稍候...');
+                } else if (card.buttonText === '预约维修') {
+                  toast.info('正在为您跳转到上门维修预约页面...');
+                }
+              };
               return (
                 <div
                   key={card.title}
@@ -109,15 +118,29 @@ export default function Support() {
                   <p className="text-dark/60 text-sm leading-relaxed mb-5">
                     {card.description}
                   </p>
-                  <button
-                    className={cn(
-                      'w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold text-white bg-gradient-to-r shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200',
-                      card.gradient
-                    )}
-                  >
-                    <Icon className="w-4 h-4" />
-                    {card.buttonText}
-                  </button>
+                  {card.buttonText === '400-888-9999' ? (
+                    <a
+                      href="tel:400-888-9999"
+                      className={cn(
+                        'w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold text-white bg-gradient-to-r shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200',
+                        card.gradient
+                      )}
+                    >
+                      <Icon className="w-4 h-4" />
+                      {card.buttonText}
+                    </a>
+                  ) : (
+                    <button
+                      onClick={handleClick}
+                      className={cn(
+                        'w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold text-white bg-gradient-to-r shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200',
+                        card.gradient
+                      )}
+                    >
+                      <Icon className="w-4 h-4" />
+                      {card.buttonText}
+                    </button>
+                  )}
                 </div>
               );
             })}
@@ -174,7 +197,12 @@ export default function Support() {
                 <p className="text-white/80 text-lg leading-relaxed mb-8">
                   我们的专业客服团队随时为您服务，无论是产品使用咨询、故障排查还是维修服务，都能得到及时响应和解决。
                 </p>
-                <button className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold bg-white text-slate-800 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+                <button
+                  onClick={() => {
+                    toast.success('正在为您连接在线客服专员...');
+                  }}
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold bg-white text-slate-800 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+                >
                   <MessageCircle className="w-5 h-5" />
                   联系在线客服
                 </button>

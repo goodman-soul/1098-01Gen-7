@@ -1,57 +1,175 @@
-# React + TypeScript + Vite
+# PawSmart 宠智选 - 宠物智能用品专业电商
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+为养猫养狗用户打造的专业宠物智能用品电商平台，提供自动喂食器、智能饮水机、宠物摄像头等产品，支持多维度精准筛选、透明的商品技术信息和完善的售后服务。
 
-Currently, two official plugins are available:
+## ✨ 核心特性
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 🎯 智能筛选系统
+- **多维度筛选**：按宠物类型（猫/狗）、体型（小/中/大）、饮食习惯、居住空间精准匹配产品
+- **引导式体验**：首页五步智能匹配向导，轻松找到最合适的产品
+- **实时过滤**：商品列表页支持分类、价格、联网方式等多条件组合筛选
 
-## Expanding the ESLint configuration
+### 📦 透明商品信息
+- **联网方式说明**：Wi-Fi / 蓝牙 / Zigbee 连接方式图文详解 + 分步骤配置指引
+- **耗材信息**：滤芯、干燥剂等耗材型号、更换周期、价格一目了然
+- **隐私设置**：数据加密方式、本地/云端存储说明、权限列表透明展示
+- **完整规格参数**：所有技术参数详细列出
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🔧 专业售后服务
+- **常见故障排查**：覆盖喂食器、饮水机、摄像头三大品类共 13+ 常见故障
+- **分步骤指引**：每个故障提供 3-6 步详细排查方案
+- **多种联系方式**：在线客服、服务热线、上门维修预约
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🏗️ 技术栈
+
+| 分类 | 技术选型 | 说明 |
+|------|---------|------|
+| 前端框架 | React 18 + TypeScript | 类型安全的现代前端开发 |
+| 构建工具 | Vite 6 | 极速开发体验与热更新 |
+| 样式方案 | TailwindCSS 3 | 原子化 CSS + CSS Variables 主题系统 |
+| 路由管理 | React Router v7 | SPA 路由解决方案 |
+| 状态管理 | Zustand 5 | 轻量级状态管理 |
+| 图标库 | Lucide React | 精美线性图标集 |
+| 代码规范 | ESLint + TypeScript | 严格类型与代码质量检查 |
+
+## 📁 项目结构
+
+```
+src/
+├── components/          # 共享组件
+│   ├── Navbar.tsx           # 顶部导航栏
+│   ├── Footer.tsx           # 底部页脚
+│   ├── ProductCard.tsx      # 商品卡片
+│   ├── SmartFilter.tsx      # 首页智能筛选向导
+│   ├── FilterPanel.tsx      # 商品列表筛选面板
+│   ├── FaultAccordion.tsx   # 故障手风琴组件
+│   └── Toast.tsx            # 全局消息提示
+├── pages/               # 页面组件
+│   ├── Home.tsx             # 首页
+│   ├── Products.tsx         # 商品列表页
+│   ├── ProductDetail.tsx    # 商品详情页
+│   └── Support.tsx          # 售后服务页
+├── data/                # Mock 数据
+│   ├── products.ts          # 产品数据（9款产品）
+│   ├── faults.ts            # 故障数据（13个故障）
+│   └── filterConfig.ts      # 筛选配置
+├── types/               # TypeScript 类型定义
+│   └── index.ts
+├── lib/                 # 工具函数
+│   └── utils.ts
+├── hooks/               # 自定义 Hooks
+│   └── useTheme.ts
+├── App.tsx              # 应用入口与路由配置
+├── main.tsx             # React 挂载入口
+└── index.css            # 全局样式与 Tailwind 入口
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 快速开始
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 环境要求
+- Node.js >= 18
+- npm 或 pnpm
 
-export default tseslint.config({
-  extends: [
-    // other configs...
-    // Enable lint rules for React
-    reactX.configs['recommended-typescript'],
-    // Enable lint rules for React DOM
-    reactDom.configs.recommended,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### 安装依赖
+
+```bash
+npm install
 ```
+
+### 开发模式
+
+```bash
+npm run dev
+```
+
+访问 http://localhost:5173 查看应用。
+
+### 生产构建
+
+```bash
+npm run build
+```
+
+构建产物将输出到 `dist/` 目录。
+
+### 类型检查
+
+```bash
+npm run check
+```
+
+### 代码检查
+
+```bash
+npm run lint
+```
+
+### 预览生产构建
+
+```bash
+npm run preview
+```
+
+## 🎨 设计规范
+
+### 主题色
+| 名称 | 色值 | 用途 |
+|------|------|------|
+| Primary 暖橙 | `#FF8C42` | 主按钮、强调色、价格高亮 |
+| Secondary 森林绿 | `#2D6A4F` | 次要按钮、成功状态、售后区域 |
+| Accent 浅橙 | `#FFB088` | 渐变辅助色 |
+| Background 米白 | `#FFF9F0` | 页面背景色 |
+| Dark 深灰 | `#333333` | 主要文字颜色 |
+
+### 字体
+- **标题字体**：Playfair Display（优雅衬线体，体现品质感）
+- **正文字体**：PingFang SC / Microsoft YaHei（中文易读性优先）
+
+### 交互设计
+- 卡片悬停：上浮 4px + 阴影加深
+- 按钮：圆角胶囊 / 圆角矩形，悬停微上浮
+- 过渡动画：统一 200-300ms duration，ease 缓动
+
+## 📱 响应式支持
+
+- ✅ 桌面端（>1024px）：完整多栏布局
+- ✅ 平板端（768-1024px）：自适应两栏布局
+- ✅ 移动端（<768px）：单列布局，筛选转为抽屉式
+
+## 🛣️ 页面路由
+
+| 路径 | 页面 | 说明 |
+|------|------|------|
+| `/` | Home | 首页：智能筛选向导 + 分类展示 + 热门推荐 |
+| `/products` | Products | 商品列表：多维度筛选 + 排序 + 商品网格 |
+| `/products/:id` | ProductDetail | 商品详情：联网方式 / 耗材 / 隐私设置 |
+| `/support` | Support | 售后服务：故障排查 + 客服联系方式 |
+
+## 📊 Mock 数据概览
+
+### 产品数据（9款）
+| 品类 | 产品 |
+|------|------|
+| 自动喂食器 | 迷你智能喂食器、大容量喂食器、双碗喂食器、陶瓷碗喂食器 |
+| 智能饮水机 | 静音循环过滤饮水机、大容量立式饮水机、无线感应饮水机 |
+| 宠物摄像头 | 夜视1080P摄像头、360°全景2K摄像头 |
+
+### 故障数据（13个）
+| 品类 | 常见故障 |
+|------|---------|
+| 喂食器 | 出粮口堵塞、App连接失败、不按时出粮、食盆不识别、食盆打翻检测异常 |
+| 饮水机 | 水泵不工作不出水、滤芯报警无法复位、漏水、指示灯异常 |
+| 摄像头 | Wi-Fi离线、夜视不清、SD卡不识别、移动追踪误报频繁 |
+
+## 🤝 开发约定
+
+1. **组件命名**：PascalCase，文件与组件名一致
+2. **组件大小**：单个组件不超过 300 行，超出时拆分
+3. **类型定义**：优先在 `src/types/index.ts` 中定义共享类型
+4. **样式规范**：优先使用 TailwindCSS 工具类，复杂样式写在 `index.css`
+5. **图标**：统一使用 Lucide React，禁止内联 SVG
+
+## 📝 License
+
+MIT
+
